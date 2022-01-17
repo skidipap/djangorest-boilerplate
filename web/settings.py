@@ -45,6 +45,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
 
+    # Rest Framework
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+
     # Local Apps
     'users.apps.UsersConfig',
 ]
@@ -158,8 +164,8 @@ AUTHENTICATION_BACKENDS = (
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Django All Auth Login and Logout Redirect
-LOGIN_REDIRECT_URL = ''
-LOGOUT_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Django All Auth Logout Without Render Template
 ACCOUNT_LOGOUT_ON_GET = True 
@@ -187,3 +193,11 @@ SOCIALACCOUNT_PROVIDERS = {
 
 # Django All Auth Social Adapter
 SOCIALACCOUNT_ADAPTER = "users.adapter.SocialAccountAdapter"
+
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
