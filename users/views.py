@@ -1,14 +1,12 @@
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
+from django.conf import settings
 
-from .serializers import UserSerializer
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from allauth.socialaccount.providers.oauth2.client import OAuth2Client
+from dj_rest_auth.registration.views import SocialLoginView
 
 
-class CurrentUserView(APIView):
-    def get(self, request):
-        if request.user.is_anonymous:
-            return Response({"message": "not login", "data": ""}, status=status.HTTP_401_UNAUTHORIZED)
-        serializer = UserSerializer(request.user)
-        message = "succes"
-        return Response({"message": message, "data": serializer.data}, status=status.HTTP_200_OK)
+class GoogleLoginView(SocialLoginView):
+    authentication_class = []
+    adapter_class = GoogleOAuth2Adapter
+    callback_url = "http://localhost:3000"
+    client_class = OAuth2Client

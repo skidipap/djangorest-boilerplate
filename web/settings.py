@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Django Grappeli
+    'jazzmin',
+
+    # Default Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -51,8 +55,17 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
 
+    # Simple JWT
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+
+    # CorsHeaders
+    'corsheaders',
+
     # Local Apps
     'users.apps.UsersConfig',
+    'base.apps.BaseConfig',
+    'masters.apps.MastersConfig',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +76,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # CorsHeaders
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'web.urls'
@@ -199,5 +215,28 @@ SOCIALACCOUNT_ADAPTER = "users.adapter.SocialAccountAdapter"
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
-    ]
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication', 
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
 }
+
+
+SITE_ID = 1
+
+# DJ Rest Auth JWT
+REST_USE_JWT = True
+
+# DJ Rest Auth Cookie Key
+JWT_AUTH_COOKIE = 'auth-token'
+JWT_AUTH_REFRESH_COOKIE = 'auth-token-refresh'
+
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+# CorsHeaders Setting
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+]
