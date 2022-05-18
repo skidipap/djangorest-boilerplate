@@ -23,8 +23,4 @@ urlpatterns = [
     
     # Auth Apps
     path('api/v1/auth/', include('users.urls')),
-
-    # Apps
-    path('api/v1/blogs/', include('blogs.urls')),
-
 ]
