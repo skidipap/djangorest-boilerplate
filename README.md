@@ -6,7 +6,8 @@ Minimal Django Boilerplate for Ready To Use
 
 1. Django 4.0 
 2. Django AllAuth
-3. 
+3. Django Rest 
+4. Django Rest SimpleJWT
 
 ## Some COnfiguration 
 
